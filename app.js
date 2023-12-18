@@ -2,40 +2,36 @@
 
 // fetch("https://api.github.com/users/anshuopinion").then(response=>response.json()).then(result=>{console.log(result)}).catch(err=>{console.log("Error....")})
 
-const searchButton=document.querySelector(".search-button")
-const profilePage=document.querySelector(".profile-page")   
-const searchArea=document.querySelector(".search-area")
-const container=document.querySelector(".container")
+const searchButton = document.querySelector(".search-button")
+const profilePage = document.querySelector(".profile-page")
+const searchArea = document.querySelector(".search-area")
+const container = document.querySelector(".root")
+
 // const profilePage=document.querySelector(".profile-page")
-async function fetchGithubProfile(){
+async function fetchGithubProfile() {
     // const searchArea=document.querySelector(".search-area")
-    const response =await fetch(`https://api.github.com/users/${searchArea.value.toLowerCase()}`)
+    const response = await fetch(`https://api.github.com/users/${searchArea.value.toLowerCase()}`)
+    console.log(response)
     const result = await response.json();
+    console.log(result)
     return result
 }
-searchButton.addEventListener("click",()=>{
+searchButton.addEventListener("click", () => {
     // const searchArea=document.querySelector(".search-area");
-    if (searchArea.value==''){
+    if (searchArea.value == '') {
         return alert("please-write-something")
     }
-    else{
-        fetchGithubProfile(searchArea.value).then(result=>{console.log(result)
+    else {
+        fetchGithubProfile().then(result => {
+            console.log(result)
 
-        if (result.login==undefined){
-            container.innerHTML=`<h1>Search Github Profile</h1>
-            <div class="search">
-                <input type="text" placeholder="Search Github Profile" class="search-area">
-                <button class="search-button">Search</button>
-            </div>
+            if (result.login == undefined) {
+                container.innerHTML = `
             <div><h3 class="error"> Profile Not Found</h3></div>
                                  `
-        }
-        else{
-        container.innerHTML= `<h1>Search Github Profile</h1>
-            <div class="search">
-                <input type="text" placeholder="Search Github Profile" class="search-area">
-                <button class="search-button">Search</button>
-            </div>
+            }
+            else {
+                container.innerHTML = `
             <div class="profile-page">
             <div class="top">
                 <div class="profile-top-left">
@@ -56,6 +52,8 @@ searchButton.addEventListener("click",()=>{
 
             </div>
         </div>`
-        }}).catch(err=>{console.log("Page Not Found")})
+            }
+            
+        }).catch(err => { console.log("Page Not Found") })
     }
 })
