@@ -19,7 +19,7 @@ searchButton.addEventListener("click",()=>{
         return alert("please-write-something")
     }
     else{
-        fetchGithubProfile().then(result=>{console.log(result)
+        fetchGithubProfile(searchArea.value).then(result=>{console.log(result)
 
         if (result.login==undefined){
             container.innerHTML=`<h1>Search Github Profile</h1>
